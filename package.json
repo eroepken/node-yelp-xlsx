@@ -11,6 +11,7 @@
   "license": "MIT",
   "dependencies": {
     "array-unique": "^0.3.2",
+    "jslint": "^0.10.3",
     "json2xls": "^0.1.2",
     "yelp-fusion": "^1.0.3"
   }
