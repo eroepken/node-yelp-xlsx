@@ -1,9 +1,9 @@
 {
-	"appID": "v9bFaPFNPzeLt5nX6By2tg",
-	"appSecret": "WXNOf0EZIbpvZovF3UEbB0b5wXB5V4MSYCHC6mVS526XAYhFhTyK8xh0d6fyRpyM",
+	"appID": "REDACTED",
+	"appSecret": "REDACTED",
 	"numMiles": 7,
 	"price": "1,2,3,4",
-	"numIterations": 2,
+	"numIterations": 3,
 	"locations": [
 		{
 			"latitude": 40.736515,

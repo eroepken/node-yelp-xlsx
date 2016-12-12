@@ -8,8 +8,8 @@ const unique = require('array-unique');
 const config = require('./config.json');
 
 const numMetersInMile = 1609.344;
+
 const limit = 50;
-const offset = 0;
 
 // Only get the access token once.
 yelp.accessToken(config.appID, config.appSecret).then(response => {
@@ -21,25 +21,28 @@ yelp.accessToken(config.appID, config.appSecret).then(response => {
     return FALSE;
   }
 
-  let allBusinesses = [];
+  return getAllBusinesses(client).then(businesses => {
+    let allBusinesses = [];
 
-  return getAllBusinesses(client).then(allBusinesses => {
-    allBusinesses.concat(businesses);
+    for (let i = 0; i < businesses.length; i++) {
+      allBusinesses = allBusinesses.concat(businesses[i]);
+    }
+
     return allBusinesses;
   });
 }).then(allBusinesses => {
-  console.log(allBusinesses);
-  // let xls = json2xls(unique(yelpToXLSX.allBusinesses));
-  // fs.writeFileSync('data.xlsx', xls, 'binary');
-  // console.log('File created.');
+
+  // fs.writeFileSync('data.json', JSON.stringify(allBusinesses, null, 1));
+  let xls = json2xls(allBusinesses);
+  fs.writeFileSync('data.xlsx', xls, 'binary');
+  console.log('File created.');
 }).catch(e => {
   console.log(e);
 });
 
 function getAllBusinesses(client) {
   // Cycle through all location objects.
-  return Promise.all(config.locations.map(function (row) {
-    let location = row;
+  return Promise.all(config.locations.map(function (location) {
     if (typeof location.latitude === 'undefined' || typeof location.longitude === 'undefined') {
       console.log('Lat/Long missing.');
       return FALSE;
@@ -50,9 +53,29 @@ function getAllBusinesses(client) {
       longitude: location.longitude,
       radius: parseInt(config.numMiles * numMetersInMile),
       price: config.price,
-      limit: limit,
-      offset: offset
+      limit: limit
     };
+
+    let numIterations = [];
+    for (var i=1;i <= config.numIterations; i++) {
+      numIterations.push(i);
+    }
+
+    return iterateCall(client, numIterations, searchRequest).then((businesses) => {
+      let allBusinesses = [];
+
+      for (let i = 0; i < businesses.length; i++) {
+        allBusinesses = allBusinesses.concat(businesses[i]);
+      }
+
+      return allBusinesses;
+    });
+  }));
+}
+
+function iterateCall(client, numIterations, searchRequest) {
+  return Promise.all(numIterations.map(function (row) {
+    searchRequest.offset = row * limit;
 
     return client.search(searchRequest).then(response => {
       let businesses = [];
