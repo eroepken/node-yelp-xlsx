@@ -1,9 +1,65 @@
 {
-	"appID": "",
-	"appSecret": "",
+	"appID": "REDACTED",
+	"appSecret": "REDACTED",
+	"numMiles": 7,
+	"price": "1,2,3,4",
+	"numIterations": 3,
 	"locations": [
 		{
-
+			"latitude": 40.736515,
+			"longitude": -73.928794
+		},
+		{
+			"latitude": 40.729950,
+			"longitude": -73.877043
+		},
+		{
+			"latitude": 40.739124,
+			"longitude": -73.816023
+		},
+		{
+			"latitude": 40.750540,
+			"longitude": -73.752213
+		},
+		{
+			"latitude": 40.765172,
+			"longitude": -73.717800
+		},
+		{
+			"latitude": 40.777071,
+			"longitude": -73.667079
+		},
+		{
+			"latitude": 40.783458,
+			"longitude": -73.588305
+		},
+		{
+			"latitude": 40.798960,
+			"longitude": -73.495999
+		},
+		{
+			"latitude": 40.793382,
+			"longitude": -73.354767
+		},
+		{
+			"latitude": 40.809142,
+			"longitude": -73.205642
+		},
+		{
+			"latitude": 40.812849,
+			"longitude": -73.116641
+		},
+		{
+			"latitude": 40.823895,
+			"longitude": -72.999573
+		},
+		{
+			"latitude": 40.851237,
+			"longitude": -72.855297
+		},
+		{
+			"latitude": 40.907116,
+			"longitude": -72.738487
 		}
 	]
-};
+}
